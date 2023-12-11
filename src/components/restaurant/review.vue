@@ -1,13 +1,23 @@
+<script setup lang="ts">
+import { type Review } from '~/composables/restaurants';
+
+const props = defineProps<{
+  reviews?: Review[]
+}>();
+</script>
+
 <template>
   <VCard class="va-company-review" tag="li">
     <VCardText>
-      <VAlert type="warning">
-        TODO: implement the reviews
-        <br>
-        • Rating using the appropriate Vuetify component
-        <br>
-        • Text (with carriage return)
-      </VAlert>
+      <div v-for="review in reviews" :key="review.id" class="p-2">
+        <VRating
+          :model-value="review.rating"
+          density="compact"
+          readonly
+        />
+        <VSpacer />
+        <span>{{ review.text }}</span>
+      </div>
     </VCardText>
   </VCard>
 </template>
