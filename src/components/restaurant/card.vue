@@ -1,9 +1,16 @@
 <script setup lang="ts">
-import { type Restaurant } from '~/composables/restaurants';
+import { type Restaurant, type Review } from '~/composables/restaurants';
 
-defineProps<{
+const props = defineProps<{
   restaurant: Restaurant
 }>();
+
+const averageRating = computed(() => {
+  const reviews = props.restaurant.reviews;
+  if (reviews.length === 0) return 0;
+  const sumOfRating = reviews.reduce((total: number, review: Review) => total + review.rating, 0);
+  return sumOfRating / reviews.length;
+});
 </script>
 
 <template>
@@ -16,11 +23,12 @@ defineProps<{
     <VCardTitle>
       {{ restaurant?.name }}
     </VCardTitle>
-    <VAlert variant="tonal" type="warning" class="mx-4 w-1/2">
-      TODO: display the average rating
-      <br>
-      Vuetify has a component for this. Use this one
-    </VAlert>
+    <VRating
+      class="mx-3"
+      :model-value="averageRating"
+      density="compact"
+      readonly
+    />
     <VCardText>
       <RestaurantLocation :location="restaurant?.location" />
     </VCardText>
