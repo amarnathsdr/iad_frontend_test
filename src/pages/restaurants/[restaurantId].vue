@@ -1,5 +1,6 @@
 <script setup lang="ts">
 import { useFetchRestaurant } from '~/composables/restaurants';
+import { formattedPhoneNumber } from '~/helpers/formating';
 
 const { params } = useRoute();
 const { data: restaurant, isError } = useFetchRestaurant({ restaurantId: params.restaurantId });
@@ -33,10 +34,7 @@ const { data: restaurant, isError } = useFetchRestaurant({ restaurantId: params.
           <RestaurantLocation :location="restaurant.location" />
           <KeyValue icon="mdi-phone">
             <p class="text-body-1">
-              {{ restaurant.phone }}
-              <VAlert type="warning">
-                ↑ TODO: we would like to display the formatted phone
-              </VAlert>
+              {{ formattedPhoneNumber(restaurant.phone) }}
             </p>
           </KeyValue>
         </div>
