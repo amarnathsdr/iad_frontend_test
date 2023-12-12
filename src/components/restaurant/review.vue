@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { type Review } from '~/composables/restaurants';
 
-const props = defineProps<{
+defineProps<{
   reviews?: Review[]
 }>();
 </script>

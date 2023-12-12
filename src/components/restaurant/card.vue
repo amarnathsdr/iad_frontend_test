@@ -18,10 +18,10 @@ defineProps<{
       {{ restaurant?.name }}
     </VCardTitle>
     <VRating
-      class="mx-3"
-      :model-value="averageRating(restaurant.reviews)"
+      :model-value="averageRating(restaurant?.reviews)"
       density="compact"
       readonly
+      class="mx-3"
     />
     <VCardText>
       <RestaurantLocation :location="restaurant?.location" />
