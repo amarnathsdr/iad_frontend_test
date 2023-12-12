@@ -1,16 +1,10 @@
 <script setup lang="ts">
-import { type Restaurant, type Review } from '~/composables/restaurants';
+import { type Restaurant } from '~/composables/restaurants';
+import { averageRating } from '@/src/helpers/rating';
 
-const props = defineProps<{
+defineProps<{
   restaurant: Restaurant
 }>();
-
-const averageRating = computed(() => {
-  const reviews = props.restaurant.reviews;
-  if (reviews.length === 0) return 0;
-  const sumOfRating = reviews.reduce((total: number, review: Review) => total + review.rating, 0);
-  return sumOfRating / reviews.length;
-});
 </script>
 
 <template>
@@ -25,7 +19,7 @@ const averageRating = computed(() => {
     </VCardTitle>
     <VRating
       class="mx-3"
-      :model-value="averageRating"
+      :model-value="averageRating(restaurant.reviews)"
       density="compact"
       readonly
     />
